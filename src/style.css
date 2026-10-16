@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+:root {
+  font-family: "DM Sans", sans-serif;
+  color: #17201e;
+  background: #f4f5f7;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button {
+  font: inherit;
+}
+
+.page {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 28px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(92, 176, 153, 0.12), transparent 42%),
+    #f4f5f7;
+}
+
+.starter-card {
+  width: min(100%, 560px);
+  padding: 56px;
+  border: 1px solid #e6e9e8;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 70px rgba(21, 44, 38, 0.08);
+}
+
+.mark {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 32px;
+  place-items: center;
+  border-radius: 16px;
+  background: #dff4ec;
+  color: #08785b;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: #168266;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(32px, 7vw, 46px);
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+}
+
+.description {
+  max-width: 390px;
+  margin: 18px 0 32px;
+  color: #65716d;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: #f0f4f2;
+  color: #246f5b;
+  font-size: 0.9em;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.counter-button {
+  min-height: 48px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 10px;
+  background: #14795e;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 140ms ease, transform 140ms ease;
+}
+
+.counter-button:hover {
+  background: #0c644c;
+  transform: translateY(-1px);
+}
+
+.counter-button:focus-visible {
+  outline: 3px solid #9edbc5;
+  outline-offset: 3px;
+}
+
+.hint {
+  color: #87918e;
+  font-size: 13px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 42px;
+  padding-top: 20px;
+  border-top: 1px solid #edf0ef;
+  color: #7a8581;
+  font-size: 13px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #31aa7f;
+  box-shadow: 0 0 0 4px #e3f5ed;
+}
+
+@media (max-width: 520px) {
+  .starter-card {
+    padding: 36px 28px;
+  }
+
+  .counter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .card-footer {
+    margin-top: 34px;
+  }
+}
