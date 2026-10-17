@@ -1,161 +1,278 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
-
-:root {
-  font-family: "DM Sans", sans-serif;
-  color: #17201e;
-  background: #f4f5f7;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-optical-sizing: auto;
-  font-weight: 400;
-}
-
-* {
-  box-sizing: border-box;
-}
+/* ---------- PAGE & CARD ---------- */
 
 body {
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: Arial, sans-serif;
   margin: 0;
-}
-
-button {
-  font: inherit;
-}
-
-.page {
-  display: grid;
   min-height: 100vh;
-  place-items: center;
-  padding: 28px;
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(92, 176, 153, 0.12), transparent 42%),
-    #f4f5f7;
+  background: linear-gradient(-45deg, #b7e4c7, #a8dadc, #ffe5b4, #d8f3dc);
+  background-size: 400% 400%;
+  animation: breathe 20s ease infinite;
 }
 
-.starter-card {
-  width: min(100%, 560px);
-  padding: 56px;
-  border: 1px solid #e6e9e8;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 24px 70px rgba(21, 44, 38, 0.08);
+@keyframes breathe {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.mark {
-  display: grid;
-  width: 52px;
-  height: 52px;
-  margin-bottom: 32px;
-  place-items: center;
+.app {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 16px;
-  background: #dff4ec;
-  color: #08785b;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 26px;
-  font-weight: 700;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: background 0.5s;
 }
 
-.eyebrow {
-  margin: 0 0 12px;
-  color: #168266;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.app.break {
+  background: rgba(255, 240, 210, 0.55);
 }
 
 h1 {
+  color: #2d6a4f;
+}
+
+h2 {
+  margin-top: 30px;
+  color: #2d6a4f;
+  font-size: 18px;
+}
+
+/* ---------- TIMER ---------- */
+
+.mode {
+  color: #666;
   margin: 0;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(32px, 7vw, 46px);
-  letter-spacing: -0.055em;
-  line-height: 1.08;
 }
 
-.description {
-  max-width: 390px;
-  margin: 18px 0 32px;
-  color: #65716d;
-  font-size: 16px;
-  line-height: 1.7;
+.plant {
+  font-size: 80px;
+  margin: 10px 0;
 }
 
-code {
-  padding: 2px 6px;
+.timer {
+  font-size: 56px;
+  font-weight: bold;
+  color: #2d6a4f;
+  margin: 0 0 12px;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #e0e0e0;
   border-radius: 5px;
-  background: #f0f4f2;
-  color: #246f5b;
-  font-size: 0.9em;
+  overflow: hidden;
+  margin-bottom: 16px;
 }
 
-.counter {
+.progress-fill {
+  height: 100%;
+  background: #52b788;
+  transition: width 1s linear;
+}
+
+/* ---------- BUTTONS ---------- */
+
+.buttons {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
 }
 
-.counter-button {
-  min-height: 48px;
-  padding: 0 20px;
-  border: 0;
-  border-radius: 10px;
-  background: #14795e;
-  color: #fff;
+button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2d6a4f;
+  color: white;
   cursor: pointer;
-  font-weight: 600;
-  transition: background 140ms ease, transform 140ms ease;
 }
 
-.counter-button:hover {
-  background: #0c644c;
-  transform: translateY(-1px);
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
-.counter-button:focus-visible {
-  outline: 3px solid #9edbc5;
-  outline-offset: 3px;
+.give-up {
+  background: #ddd;
+  color: #333;
 }
 
-.hint {
-  color: #87918e;
+.reset-all {
+  margin-top: 20px;
+  background: none;
+  color: #c0392b;
+  border: 1px solid #c0392b;
   font-size: 13px;
+  padding: 6px 12px;
 }
 
-.card-footer {
+.reset-all:hover {
+  background: #c0392b;
+  color: white;
+}
+
+/* ---------- SETTINGS ---------- */
+
+.settings {
+  margin: 18px 0 0;
+  padding: 12px;
+  background: #f1f8f4;
+  border-radius: 12px;
+}
+
+.setting {
   display: flex;
   align-items: center;
-  gap: 9px;
-  margin-top: 42px;
-  padding-top: 20px;
-  border-top: 1px solid #edf0ef;
-  color: #7a8581;
+  justify-content: center;
+  gap: 10px;
+  margin: 6px 0;
+}
+
+.setting span {
+  width: 50px;
+  text-align: left;
+  color: #555;
+}
+
+.setting strong {
+  width: 70px;
+  color: #2d6a4f;
+}
+
+.setting button {
+  padding: 4px 14px;
+  font-size: 18px;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.presets button {
+  padding: 6px 10px;
   font-size: 13px;
+  background: #b7e4c7;
+  color: #1b4332;
 }
 
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #31aa7f;
-  box-shadow: 0 0 0 4px #e3f5ed;
+/* ---------- GARDEN SCENE ---------- */
+
+.garden-scene {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  padding-top: 100px;
+  background: linear-gradient(#8ecae6, #dff3fb);
 }
 
-@media (max-width: 520px) {
-  .starter-card {
-    padding: 36px 28px;
-  }
+.ground {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  min-height: 80px;
+  padding: 24px 12px 16px;
+  background: linear-gradient(#95d5b2, #52b788);
+  border-radius: 50% 50% 0 0 / 24px 24px 0 0;
+}
 
-  .counter {
-    align-items: flex-start;
-    flex-direction: column;
-  }
+.empty {
+  color: #1b4332;
+  font-size: 14px;
+  margin: auto;
+}
 
-  .card-footer {
-    margin-top: 34px;
-  }
+.garden-plant {
+  font-size: 34px;
+  transform-origin: bottom center;
+  animation: pop-in 0.6s ease-out, sway 3s ease-in-out infinite;
+  transition: scale 0.2s;
+  cursor: default;
+}
+
+.garden-plant:hover {
+  scale: 1.3;
+}
+
+.garden-plant.wilted {
+  filter: grayscale(0.7);
+  animation: pop-in 0.6s ease-out;
+}
+
+/* ---------- SKY ---------- */
+
+.sun {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 42px;
+  filter: drop-shadow(0 0 12px #ffd166);
+  animation: glow 4s ease-in-out infinite;
+}
+
+.cloud {
+  position: absolute;
+  font-size: 40px;
+  opacity: 0.9;
+  animation: drift linear infinite;
+}
+
+.cloud-1 {
+  top: 14px;
+  animation-duration: 30s;
+}
+
+.cloud-2 {
+  top: 48px;
+  font-size: 30px;
+  animation-duration: 45s;
+  animation-delay: -20s;
+}
+
+.butterfly {
+  position: absolute;
+  font-size: 26px;
+  animation: flutter 10s ease-in-out infinite;
+}
+
+/* ---------- ANIMATIONS ---------- */
+
+@keyframes pop-in {
+  from { scale: 0; }
+  to   { scale: 1; }
+}
+
+@keyframes sway {
+  0%, 100% { rotate: -4deg; }
+  50%      { rotate: 4deg; }
+}
+
+@keyframes glow {
+  0%, 100% { scale: 1; }
+  50%      { scale: 1.1; }
+}
+
+@keyframes drift {
+  from { left: -60px; }
+  to   { left: 110%; }
+}
+
+@keyframes flutter {
+  0%   { left: 10%; top: 60px; rotate: -10deg; }
+  25%  { left: 40%; top: 25px; rotate: 10deg; }
+  50%  { left: 70%; top: 65px; rotate: -10deg; }
+  75%  { left: 45%; top: 35px; rotate: 10deg; }
+  100% { left: 10%; top: 60px; rotate: -10deg; }
 }
