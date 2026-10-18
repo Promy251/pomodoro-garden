@@ -18,9 +18,30 @@ function loadSettings() {
 const FOCUS_DONE_NOTES = [523.25, 659.25, 783.99, 1046.5]   // C E G C: rising, happy
 const BREAK_DONE_NOTES = [783.99, 523.25]                    // G C: gentle "back to work"
 
+let audioCtx = null
+
+function getAudioContext() {
+  if (!audioCtx) {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext
+    audioCtx = new AudioCtx()
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume()
+  return audioCtx
+}
+
+function unlockAudio() {
+  if (navigator.audioSession) navigator.audioSession.type = 'playback'
+
+  const ctx = getAudioContext()
+  const buffer = ctx.createBuffer(1, 1, 22050)
+  const source = ctx.createBufferSource()
+  source.buffer = buffer
+  source.connect(ctx.destination)
+  source.start(0)
+}
+
 function playChime(notes) {
-  const AudioCtx = window.AudioContext || window.webkitAudioContext
-  const ctx = new AudioCtx()
+  const ctx = getAudioContext()
 
   notes.forEach((frequency, i) => {
     const oscillator = ctx.createOscillator()
@@ -40,8 +61,6 @@ function playChime(notes) {
     oscillator.start(start)
     oscillator.stop(start + 0.8)
   })
-
-  setTimeout(() => ctx.close(), notes.length * 250 + 1000)
 }
 
 function App() {
@@ -115,6 +134,11 @@ function App() {
     setSecondsLeft(workTime)
   }
 
+  function toggleRunning() {
+    if (!isRunning) unlockAudio()
+    setIsRunning(!isRunning)
+  }
+
   function changeWork(direction) {
     let step = 5
     if (workMinutes < 10 || (workMinutes === 10 && direction < 0)) step = 1
@@ -176,7 +200,7 @@ function App() {
       </div>
 
       <div className="buttons">
-        <button onClick={() => setIsRunning(!isRunning)}>
+          <button onClick={toggleRunning}>
           {isRunning ? 'Pause' : 'Start'}
         </button>
         <button className="give-up" onClick={giveUp}>Give up</button>
