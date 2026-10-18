@@ -15,10 +15,40 @@ function loadSettings() {
   return saved ? JSON.parse(saved) : { workMinutes: 25, breakMinutes: 5 }
 }
 
+const FOCUS_DONE_NOTES = [523.25, 659.25, 783.99, 1046.5]   // C E G C: rising, happy
+const BREAK_DONE_NOTES = [783.99, 523.25]                    // G C: gentle "back to work"
+
+function playChime(notes) {
+  const AudioCtx = window.AudioContext || window.webkitAudioContext
+  const ctx = new AudioCtx()
+
+  notes.forEach((frequency, i) => {
+    const oscillator = ctx.createOscillator()
+    const volume = ctx.createGain()
+
+    oscillator.type = 'sine'
+    oscillator.frequency.value = frequency
+
+    const start = ctx.currentTime + i * 0.25
+    volume.gain.setValueAtTime(0, start)
+    volume.gain.linearRampToValueAtTime(0.3, start + 0.02)
+    volume.gain.exponentialRampToValueAtTime(0.001, start + 0.8)
+
+    oscillator.connect(volume)
+    volume.connect(ctx.destination)
+
+    oscillator.start(start)
+    oscillator.stop(start + 0.8)
+  })
+
+  setTimeout(() => ctx.close(), notes.length * 250 + 1000)
+}
+
 function App() {
   // SETTINGS
   const [workMinutes, setWorkMinutes] = useState(() => loadSettings().workMinutes)
   const [breakMinutes, setBreakMinutes] = useState(() => loadSettings().breakMinutes)
+  const [soundOn, setSoundOn] = useState(() => localStorage.getItem('soundOn') !== 'false')
   const workTime = workMinutes * MINUTE
   const breakTime = breakMinutes * MINUTE
 
@@ -46,6 +76,7 @@ function App() {
   useEffect(() => {
     if (secondsLeft > 0) return
     setIsRunning(false)
+    if (soundOn) playChime(mode === 'work' ? FOCUS_DONE_NOTES : BREAK_DONE_NOTES)
     if (mode === 'work') {
       addPlant(false)
       setMode('break')
@@ -64,6 +95,10 @@ function App() {
   useEffect(() => {
     localStorage.setItem('settings', JSON.stringify({ workMinutes, breakMinutes }))
   }, [workMinutes, breakMinutes])
+
+  useEffect(() => {
+    localStorage.setItem('soundOn', String(soundOn))
+  }, [soundOn])
 
   // ACTIONS
   function addPlant(wilted) {
@@ -167,6 +202,18 @@ function App() {
                 {preset.label}
               </button>
             ))}
+          </div>
+          <div className="sound-row">
+            <button className="sound-toggle" onClick={() => setSoundOn(!soundOn)}>
+              {soundOn ? '🔔 Sound on' : '🔕 Sound off'}
+            </button>
+            <button
+              className="sound-toggle"
+              onClick={() => playChime(FOCUS_DONE_NOTES)}
+              disabled={!soundOn}
+            >
+              ▶ Test sound
+            </button>
           </div>
         </div>
       )}

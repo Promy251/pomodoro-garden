@@ -276,3 +276,18 @@ button:disabled {
   75%  { left: 45%; top: 35px; rotate: 10deg; }
   100% { left: 10%; top: 60px; rotate: -10deg; }
 }
+
+.sound-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.sound-toggle {
+  padding: 6px 12px;
+  font-size: 13px;
+  background: #fff;
+  color: #2d6a4f;
+  border: 1px solid #b7e4c7;
+}
